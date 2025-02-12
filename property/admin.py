@@ -5,9 +5,9 @@ from .models import Flat, Report, Owner
 
 @admin.register(Flat)
 class AuthorAdmin(admin.ModelAdmin):
-    search_fields = ('town', 'address', 'owner',)
+    search_fields = ('town', 'address', 'id',)
     readonly_fields = ['created_at', ]
-    list_display = ['address', 'price', 'new_building', 'construction_year', 'owner_pure_phone', 'owners_phonenumber']
+    list_display = ['address', 'price', 'new_building', 'construction_year', ]
     list_editable = ['new_building', ]
     list_filter = ['new_building', 'rooms_number', 'has_balcony', ]
     raw_id_fields = ['liked_by', ]
