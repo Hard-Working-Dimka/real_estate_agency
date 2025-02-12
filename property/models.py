@@ -1,4 +1,5 @@
 from django.db import models
+from django.db.models import ForeignKey
 from django.utils import timezone
 from django.contrib.auth.models import User
 
@@ -61,3 +62,10 @@ class Report(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='Кто пожаловался')
     flat = models.ForeignKey(Flat, on_delete=models.CASCADE, verbose_name='Квартира, на которую пожаловались')
     text = models.TextField(verbose_name='Текса жалобы')
+
+
+class Owner(models.Model):
+    owner = models.CharField('ФИО владельца', max_length=200, blank=False)
+    owners_phonenumber = models.CharField('Номер владельца', max_length=20, blank=False)
+    owner_pure_phone = PhoneNumberField(verbose_name='Номер телефона владельца', null=True, blank=True)
+    flats = models.ManyToManyField(Flat, blank=False, verbose_name='Квартиры в собственности', related_name='owners')
