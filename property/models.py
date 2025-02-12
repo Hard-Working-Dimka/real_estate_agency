@@ -51,7 +51,7 @@ class Flat(models.Model):
         db_index=True)
     new_building = models.BooleanField(verbose_name='Новое строение', null=True, blank=True)
     liked_by = models.ManyToManyField(User, verbose_name='Кто лайкнул', null=True, blank=True)
-    owner_pure_phone = PhoneNumberField(verbose_name='Номер телефона владельца', null=True, blank=True, region='RU')
+    owner_pure_phone = PhoneNumberField(verbose_name='Номер телефона владельца', null=True, blank=True)
 
     def __str__(self):
         return f'{self.town}, {self.address} ({self.price}р.)'
