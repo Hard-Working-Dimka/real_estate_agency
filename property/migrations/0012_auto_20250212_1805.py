@@ -6,12 +6,9 @@ from django.db import migrations
 def transfer_flats_info(apps, schema_editor):
     Flat = apps.get_model('property', 'Flat')
     Owner = apps.get_model('property', 'Owner')
-    for owner in Owner.objects.all():
+    owners = Owner.objects.all()
+    for owner in owners.iterator():
         owner.flats.set(Flat.objects.filter(owner=owner.owner))
-
-        # owner.owner_pure_phone = owner.flats.owner_pure_phone
-        # owner.owner_phone = owner.flats.owner_phone
-
         owner.save()
 
 
