@@ -49,7 +49,7 @@ class Flat(models.Model):
         blank=True,
         db_index=True)
     new_building = models.BooleanField(verbose_name='Новое строение', null=True, blank=True)
-    liked_by = models.ManyToManyField(User, verbose_name='Кто лайкнул', blank=True)
+    liked_by = models.ManyToManyField(User, verbose_name='Кто лайкнул', blank=True, related_name='likes')
 
 
 def __str__(self):
@@ -57,18 +57,22 @@ def __str__(self):
 
 
 class Report(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='Кто пожаловался')
-    flat = models.ForeignKey(Flat, on_delete=models.CASCADE, verbose_name='Квартира, на которую пожаловались')
+    user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='Кто пожаловался', related_name='reports')
+    flat = models.ForeignKey(Flat, on_delete=models.CASCADE, verbose_name='Квартира, на которую пожаловались',
+                             related_name='reports')
     text = models.TextField(verbose_name='Текса жалобы')
+
+    def __str__(self):
+        return f'{self.user}, ({self.flat.address})'
 
 
 class Owner(models.Model):
-    owner = models.CharField('ФИО владельца', max_length=200, blank=False, db_index=True)
-    owners_phonenumber = models.CharField('Номер владельца', max_length=20, blank=False, db_index=True)
-    owner_pure_phone = PhoneNumberField(verbose_name='Нормализованный номер владельца', null=True, blank=True,
-                                        db_index=True)
+    name = models.CharField('ФИО владельца', max_length=200, blank=False, db_index=True)
+    phonenumber = models.CharField('Номер владельца', max_length=20, blank=False, db_index=True)
+    pure_phone = PhoneNumberField(verbose_name='Нормализованный номер владельца', null=True, blank=True,
+                                  db_index=True)
     flats = models.ManyToManyField(Flat, blank=False, verbose_name='Квартиры в собственности', related_name='owners',
                                    db_index=True)
 
     def __str__(self):
-        return f'{self.owner}'
+        return f'{self.name}'
