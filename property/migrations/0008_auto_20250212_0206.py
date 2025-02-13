@@ -7,7 +7,7 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('property', '0008_flat_owner_pure_phone'),
+        ('property', '0007_flat_owner_pure_phone'),
     ]
 
     operations = [

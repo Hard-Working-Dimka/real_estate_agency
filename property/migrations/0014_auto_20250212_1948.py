@@ -14,7 +14,7 @@ def transfer_flats_info(apps, schema_editor):
 
 class Migration(migrations.Migration):
     dependencies = [
-        ('property', '0013_auto_20250212_1805'),
+        ('property', '0012_auto_20250212_1805'),
     ]
 
     operations = [

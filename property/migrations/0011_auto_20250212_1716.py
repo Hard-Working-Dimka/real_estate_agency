@@ -12,7 +12,7 @@ def transfer_owners(apps, schema_editor):
 
 class Migration(migrations.Migration):
     dependencies = [
-        ('property', '0011_auto_20250212_1705'),
+        ('property', '0010_auto_20250212_1705'),
     ]
 
     operations = [
